@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/icons">
+    <file alias="app.png">icons/app.png</file>
+    <file alias="undo.png">icons/undo.png</file>
+  </qresource>
+</RCC>

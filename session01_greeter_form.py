@@ -11,12 +11,23 @@ from PySide6.QtWidgets import (
 
 def main():
     # TODO: create the QApplication from sys.argv
+    app = QApplication(sys.argv)
     # TODO: create the window QWidget, title "Greeter", resize(300, 120)
+    window = QWidget()
+    window.setWindowTitle("Greeter")
+    window.resize(300, 120)
     # TODO: add a QLabel "Your name:" with setGeometry(20, 20, 80, 24)
+    label = QLabel("Your name:", parent=window)
+    label.setGeometry(20, 20, 80, 24)
     # TODO: add a QLineEdit with setGeometry(110, 20, 170, 24)
+    name_edit = QLineEdit(parent=window)
+    name_edit.setGeometry(110, 20, 170, 24)
     # TODO: add a QPushButton "Greet me" with setGeometry(110, 60, 170, 28)
+    button = QPushButton("Greet me", parent=window)
+    button.setGeometry(110, 60, 170, 28)
     # TODO: show the window and enter the event loop with sys.exit(app.exec())
-    pass
+    window.show()
+    sys.exit(app.exec())
 
 
 if __name__ == "__main__":

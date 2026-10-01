@@ -22,10 +22,19 @@ class GreeterWindow(QWidget):
 
         # TODO: build a QHBoxLayout "row" with QLabel("Your name:") and
         #       self.name_edit
+        row = QHBoxLayout()
+        row.addWidget(QLabel("Your name:"))
+        row.addWidget(self.name_edit)
+
         # TODO: build the main QVBoxLayout(self) — passing the parent to the
         #       constructor is the shorthand — then addLayout(row),
         #       addWidget(button), addWidget(self.greeting)
         #       (see deck: Layouts and a Widget Tour)
+        main = QVBoxLayout(self)
+        main.addLayout(row)
+        main.addWidget(button)
+        main.addWidget(self.greeting)
+
 
     def greet(self):
         self.greeting.setText(f"Hello, {self.name_edit.text()}!")

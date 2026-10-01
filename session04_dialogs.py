@@ -39,10 +39,16 @@ class NameDialog(QDialog):
         # TODO: create a QDialogButtonBox with Ok | Cancel and connect its
         #       accepted signal to self.accept and rejected to self.reject
         #       (see deck: Main Windows and Dialogs — custom dialogs)
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons.accepted.connect(self.accept)
+        buttons.rejected.connect(self.reject)
+
+
 
         layout = QVBoxLayout(self)
         layout.addWidget(self.name_edit)
         # TODO: add the button box to the layout
+        layout.addWidget(buttons)
 
 
 class SettingsDialog(QDialog):  # TODO (deck): changed from QWidget to QDialog
@@ -92,6 +98,11 @@ class SettingsDialog(QDialog):  # TODO (deck): changed from QWidget to QDialog
         #       self.accept and rejected → self.reject, and append it to the
         #       main layout (see deck: Main Windows and Dialogs — turning the
         #       mockup into a dialog)
+        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons.accepted.connect(self.accept)
+        buttons.rejected.connect(self.reject)
+
+
 
         main_layout = QVBoxLayout(self)
         main_layout.addWidget(editor_group)
@@ -163,18 +174,30 @@ class DialogsDemoWindow(QMainWindow):
         # TODO: show QMessageBox.information(self, "Saved",
         #       "Your document was saved.")
         #       (see deck: Main Windows and Dialogs — message boxes)
-        pass
+        QMessageBox.information(self, "Saved", "Your document was saved.")
 
     def show_warning(self):
         # TODO: show QMessageBox.warning(self, "Oops",
         #       "Could not open the file.")
-        pass
+        QMessageBox.warning(self, "Oops", "Could not open the file.")
 
     def ask_question(self):
         # TODO: ask with QMessageBox.question (Save | Discard | Cancel) and
         #       print which button was chosen ("Save chosen" / "Discard
         #       chosen" / "Cancel chosen")
-        pass
+        answer = QMessageBox.question(
+            self,
+            "Unsaved changes",
+            "The document has unsaved changes. Save before closing?",
+            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,
+        )
+        if answer == QMessageBox.Save:
+            print("Save chosen")
+        elif answer == QMessageBox.Discard:
+            print("Discard chosen")
+        else:
+            print("Cancel chosen")
+
 
 
 def main():

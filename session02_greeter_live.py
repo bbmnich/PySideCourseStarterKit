@@ -28,9 +28,11 @@ def main():
     def greet():
         # TODO: set the greeting label's text to f"Hello, {name_edit.text()}!"
         #       (see deck: Signals and Slots — bringing the greeter to life)
-        pass
+        greeting.setText(f"Hello, {name_edit.text()}!")
 
     # TODO: connect button.clicked to greet
+    button.clicked.connect(greet)
+    
 
     window.show()
     sys.exit(app.exec())

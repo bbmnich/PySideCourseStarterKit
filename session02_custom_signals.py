@@ -12,8 +12,10 @@ from PySide6.QtWidgets import (
 
 
 class NameEditor(QWidget):
+
     # TODO: declare name_submitted = Signal(str) as a CLASS attribute
     #       (see deck: Signals and Slots — custom signals)
+    name_submitted = Signal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -25,7 +27,7 @@ class NameEditor(QWidget):
 
     def _submit(self):
         # TODO: emit name_submitted with the current text: self.edit.text()
-        pass
+        self.name_submitted.emit(self.edit.text())
 
 
 def main():
@@ -33,7 +35,7 @@ def main():
 
     window = QWidget()
     window.setWindowTitle("Custom signals")
-    window.resize(200, 82)
+    window.resize(200, 90)
 
     editor = NameEditor(window)
     # The guard keeps the starter runnable before name_submitted is declared.

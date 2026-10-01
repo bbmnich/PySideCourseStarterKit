@@ -30,16 +30,27 @@ class ListModelWindow(QMainWindow):
         # TODO: create self.model = QStringListModel() and populate it with
         #       setStringList(["Ada", "Grace", "Edsger"])
         #       (see deck: Model/View Programming I)
+        self.model = QStringListModel()
+        self.model.setStringList(["Ada", "Grace", "Edger"])
+
 
         self.view = QListView()
         # TODO: self.view.setModel(self.model)
+        self.view.setModel(self.model)
 
         self.combo = QComboBox()
         # TODO: let the combo share the same model — a combo box is a view too!
+        self.combo.setModel(self.model)  # a combo box is a view too!
+
+
 
         self.detail_label = QLabel("Selected: —")
         # TODO: connect self.view.selectionModel().currentChanged to a lambda
         #       (current, previous) that calls self.on_selection()
+        self.view.selectionModel().currentChanged.connect(
+            lambda current, previous: self.on_selection()
+        )
+
 
         change_button = QPushButton("Change row 0")
         change_button.clicked.connect(self.change_first_row)
@@ -66,21 +77,37 @@ class ListModelWindow(QMainWindow):
         # TODO: read self.view.currentIndex(); if it is not valid, show
         #       "Selected: —" and return; otherwise show
         #       f"Selected: {index.data()}"
-        pass
+        index = self.view.currentIndex()
+        if not index.isValid():
+            self.detail_label.setText("Selected: —")
+            return  # nothing selected
+        name = index.data()  # the string at that row
+        self.detail_label.setText(f"Selected: {name}")
+
+
 
     def change_first_row(self):
         # TODO: self.model.setData(self.model.index(0), "Ada Lovelace")
-        pass
+        self.model.setData(self.model.index(0), "Ada Lovelace")
+
+
 
     def add_row(self):
         # TODO: insertRow at self.model.rowCount(), then setData on the new
         #       row to "Alan"
-        pass
+        row = self.model.rowCount()
+        self.model.insertRow(row)
+        self.model.setData(self.model.index(row), "Alan")
+
+
 
     def remove_selected_row(self):
         # TODO: if the view's currentIndex() is valid, removeRow its row
         #       through the model
-        pass
+        index = self.view.currentIndex()
+        if index.isValid():
+            self.model.removeRow(index.row())
+
 
 
 def main():
